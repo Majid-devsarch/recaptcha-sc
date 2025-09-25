@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>reCAPTCHA Proxy</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </head>
+  <body>
+    <div
+      class="g-recaptcha"
+      data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"  <!-- replace with your real site key -->
+      data-callback="onVerify"
+      data-expired-callback="onExpired"
+      data-error-callback="onError"
+    ></div>
+
+    <script>
+      function onVerify(token) {
+        window.parent.postMessage({ type: "recaptcha:verified", token }, "*")
+      }
+      function onExpired() {
+        window.parent.postMessage({ type: "recaptcha:expired" }, "*")
+      }
+      function onError() {
+        window.parent.postMessage({ type: "recaptcha:error" }, "*")
+      }
+    </script>
+  </body>
+</html>
